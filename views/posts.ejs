@@ -33,7 +33,7 @@
        },
        methods: {
            fetchData (){
-               axios.get('/posts/list')
+               axios.get('/api/posts')
                 .then(function(response){
                     hello.postsList = response.data.postsList;
                 })
