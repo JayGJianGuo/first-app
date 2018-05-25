@@ -29,13 +29,13 @@
         },
         methods: {
             submit () {
-                axios.post('api/posts/create',
+                axios.post('/api/posts/create',
             {
                 title: vm.title,
                 content: vm.content
             })
             .then(function(response){
-                alert(JSON.stringify(response,data));   /* 转化为字符串 */
+                alert(JSON.stringify(response.data));   /* 转化为字符串 */
             })
             .catch(function(err){
                 alert(err);

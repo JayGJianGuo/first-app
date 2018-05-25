@@ -11,6 +11,7 @@ router.get('/posts', function(req, res, next){
     res.render('posts', { title: 'posts'} );
 });
 
+/* Get posts create page. */
 router.get('/posts/create', function(req, res, next){
     res.render('create');
 });
