@@ -9,4 +9,9 @@ router.get('/', function (req, res, next) {
     });
 });
 
+/* Get postsList 数据 */
+router.get('/list', function(req, res,next){
+    res.json({postsList: ['Post1', 'Post2', 'Post3']});
+});
+
 module.exports = router;

@@ -6,18 +6,40 @@
         <%= title %>
     </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+<script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
 </head>
 
 <body>
-    <h1>
-        <%= title %>
-    </h1>
-    <p>Welcome to
-        <%= title %>
-    </p>
-    <% for(var i = 0; i < postsList.length; i++) { %>
-        <p><%= postsList[i] %></p>
-    <% } %>
+    <div id="app">
+        <h1>
+            <%= title %>
+        </h1>
+        <p>Welcome to
+            <%= title %>
+        </p>
+        
+        <p v-for="item in postsList">{{ item }}</p>
+    </div>
 </body>
 
 </html>
+
+<script>
+    var hello = new Vue({
+        el: "#app",
+        data: {
+            postsList: []
+       },
+       methods: {
+           fetchData (){
+               axios.get('/posts/list')
+                .then(function(response){
+                    hello.postsList = response.data.postsList;
+                })
+           }
+       }
+    });
+
+    hello.fetchData();
+</script>
