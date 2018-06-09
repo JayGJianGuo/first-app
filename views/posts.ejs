@@ -19,7 +19,9 @@
             <%= title %>
         </p>
         
-        <p v-for="item in postsList">{{ item }}</p>
+        <p v-for="item in postsList">{{ item.title }}</p>
+        <p v-for="item in postsList">{{ item.content }}</p>
+
     </div>
 </body>
 
