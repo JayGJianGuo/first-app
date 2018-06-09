@@ -35,7 +35,8 @@
         },
         methods: {
             fetchData() {
-                axios.get('/api/posts').then(function (response) {
+                axios.get('/api/posts')
+                .then(function (response) {
                     vm.postsList = response.data.postsList;
                     vm.postsList.forEach((element) => element.url = '/posts/show?id=' + element._id);
                 });

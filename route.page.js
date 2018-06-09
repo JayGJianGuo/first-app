@@ -18,7 +18,7 @@ router.get('/posts/create', function(req, res, next){
 });
 
 /* GET posts show page */
-router.get('posts/show', function(req, res, next){
+router.get('/posts/show', function(req, res, next){
     var id = req.query.id;
 
     PostModel.findOne({_id: id}, function(err, post){
