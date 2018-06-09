@@ -2,20 +2,17 @@
 <html>
   <head>
     <title><%= title %></title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <div class="row">
-      <div class="col-md-8 col-sm-8 col-xs-8">
-        <h1>
-          <%= title %>
-        </h1>
-        <p>Welcome to
-          <%= title %>
-        </p>
-      </div>
-      <div class="col-md-4 col-sm-4 col-xs-4">
-        sidebar
+    <div class="container">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="jumbotron">
+          <h1>Hello World!</h1>
+          <p>This is my memory space.</p>
+          <p><a class="btn btn-primary btn-lg" href="/posts" role="button">Get into New World</a></p>
+        </div>
       </div>
     </div>
   </body>
