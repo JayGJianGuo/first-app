@@ -10,7 +10,7 @@ router.get('/', function(req, res, next){
 
 /* Get posts page. */
 router.get('/posts', function(req, res, next){
-    res.render('posts', { title: 'posts'} );
+    res.render('posts', { title: '我的文章'} );
 });
 
 /* Get posts create page. */

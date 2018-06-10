@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title>
-        <%= post.title %>
-    </title>
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</head>
-
-<body>
     <div class="btn-group pull-right">
-        <button type="button" class="btn btn-default">Option</button>
+        <button type="button" class="btn btn-default">操作</button>
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
@@ -24,18 +11,11 @@
             </li>
         </ul>
     </div>
-    <div id="app">
-        <div class="container">
-            <div class="col-md-8 col-md-offset-2">
-                <h1>
-                    <%= post.title %>
-                </h1>
-                <div>
-                    <%- post.content %>
-                </div>
-            </div>
+    <div class="col-md-8 col-md-offset-2">
+        <h1>
+            <%= post.title %>
+        </h1>
+        <div>
+            <%- post.content %>
         </div>
     </div>
-</body>
-
-</html>
