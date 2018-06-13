@@ -1,0 +1,181 @@
+<div id="app">
+    <h1>
+        <%= title %>
+    </h1>
+</div>
+<div id="main">
+    <div class="box">
+        <div class="pic">
+            <img src="/images/001.jpg" alt="Gakki" />
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/002.jpg" alt="Gakki" />
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/003.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/004.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/005.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/006.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/007.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/008.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/009.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/010.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/011.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/012.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/013.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/014.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/015.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/016.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/017.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/018.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/019.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/020.jpg" alt="Gakki">
+        </div>
+    </div>
+</div>
+
+
+<script>
+window.onload = function(){
+    waterfall('main', 'box');
+}
+
+function waterfall(parent, box){
+    //将main下所以的box元素取出
+    var oParent = document.getElementById(parent);
+    var oBox = getByClass(oParent, box);
+    //计算整个页面显示的列数
+    var oBoxWidth = oBox[0].offsetWidth;
+    var cols = Math.floor(document.documentElement.clientWidth/oBoxWidth);
+    oParent.style.cssText = 'width:' + oBoxWidth * cols + 'px; margin: 0 auto';
+    //定位第二列的位置
+    var hArr = [];
+    for (var i = 0; i < oBox.length; i++){
+        var boxH = oBox[i].offsetHeight;
+        if(i < cols) {
+            hArr[i] = boxH;
+        } else {
+            //通过apply来改变函数的this的方法
+            var minHeight = Math.min.apply(null, hArr);
+            var minIndex = getMinHeightIndex(hArr, minHeight);
+            oBox[i].style.position = 'absolute';
+            oBox[i].style.top = minHeight + 'px';
+            oBox[i].style.left = oBoxWidth * minIndex + 'px';
+            //oBox[i].style.left = oBox[minIndex].offsetLeft+'px';
+            hArr[minIndex] += oBox[i].offsetHeight;
+        }
+    }
+};
+
+//根据class获取元素
+function getByClass(parent, clsName){
+    //用来存储取到的所有class元素
+    var boxArr = new Array();
+    var oElements = parent.getElementsByTagName('*');
+    for(var i = 0; i < oElements.length; i++){
+        if(oElements[i].className == clsName){
+            boxArr.push(oElements[i]);
+        }
+    };
+    return boxArr;
+};
+
+function getMinHeightIndex(arr, minH){
+    for(var i in arr){
+        if(arr[i] == minH){
+            return i;
+        }
+    }
+}
+</script>
