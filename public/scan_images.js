@@ -33,7 +33,7 @@ fs.readdir(readFilePath, function (err, files) {
         }
     }
     console.log(jsonList);
-    jsonfile.writeFileSync(writeFilePath,'{\'' + "data" +'\''+ ':' + '[' +jsonList + ']' + '}', {
+    jsonfile.writeFileSync(writeFilePath,'{\"' + "data" +'\"'+ ':' + '[' +jsonList + ']' + '}', {
         spaces: 2,
         EOL: '\r\n'
     });

@@ -129,8 +129,10 @@
 <script>
     window.onload = function () {
         waterfall('main', 'box');
- var imagesData = {'data':[{"src":"000.jpg"},{"src":"001.jpg"},{"src":"002.jpg"},{"src":"003.jpg"},{"src":"004.jpg"},{"src":\"005.jpg\"},{\"src\":\"006.jpg\"},{\"src\":\"007.jpg\"},{\"src\":\"008.jpg\"},{\"src\":\"009.jpg\"},{\"src\":\"010.jpg\"},{\"src\":\"011.jpg\"},{\"src\":\"012.jpg\"},{\"src\":\"013.jpg\"},{\"src\":\"014.jpg\"},{\"src\":\"015.jpg\"},{\"src\":\"016.jpg\"},{\"src\":\"017.jpg\"},{\"src\":\"018.jpg\"},{\"src\":\"019.jpg\"},{\"src\":\"020.jpg\"}]};
-
+        var imagesData = { data: [ { src: '001.jpg' }, { src: '002.jpg' }, { src: '003.jpg' }, { src: '004.jpg' }, { src: '005.jpg'
+        }, { src: '006.jpg' }, { src: '007.jpg' }, { src: '008.jpg' }, { src: '009.jpg' }, { src: '010.jpg' }, { src: '011.jpg' },
+        { src: '012.jpg' }, { src: '013.jpg' }, { src: '014.jpg' }, { src: '015.jpg' }, { src: '016.jpg' }, { src: '017.jpg' }, {
+        src: '018.jpg' }, { src: '019.jpg' }, { src: '020.jpg' } ] };
         window.onscroll = function () {
             if (checkScrollSlide) {
                 var oParent = document.getElementById('main');
@@ -144,6 +146,8 @@
                     createBox.appendChild(createPic);
                     var oImage = document.createElement('img');
                     oImage.src = 'images/' + imagesData.data[i].src;
+ //Users/jaykey/Pictures/1.Gakki/Fashion Photo Magazine 2012/004.jpg
+ //Users/jaykey/Pictures/1.Gakki/Fashion\ Photo\ Magazine\ 2012/027.jpg
                     createPic.appendChild(oImage);
                 }
                 waterfall('main', 'box');

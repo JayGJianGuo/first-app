@@ -36,7 +36,7 @@ router.get('/posts/edit', function (req, res, next) {
 });
 
 /* GET waterfall page. */
-router.get('/waterfall', function(req, res, next){
+router.get('/waterfall_1', function(req, res, next){
     res.render('waterfall', { title: 'Gakki瀑布流布局' })
 });
 
