@@ -14,7 +14,8 @@ a {
 }
 
 #main {
-  position: relative;
+  -webkit-column-width: 202px;
+  -moz-column-width: 202px;
 }
 
 .box {

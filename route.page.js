@@ -37,7 +37,15 @@ router.get('/posts/edit', function (req, res, next) {
 
 /* GET waterfall page. */
 router.get('/waterfall_1', function(req, res, next){
-    res.render('waterfall', { title: 'Gakki瀑布流布局' })
+    res.render('waterfall_1', { title: 'Gakki瀑布流布局' });
+});
+
+router.get('/waterfall_2', function(req, res, next) {
+    res.render('waterfall_2', { title: 'Gakki~~~'} );
+});
+
+router.get('/waterfall_3', function(req, res, next){
+    res.render('waterfall_3', { title: 'WOW~ Gakki!'})
 });
 
 module.exports = router;

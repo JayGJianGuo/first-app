@@ -1,0 +1,175 @@
+<div id="app">
+    <h1>
+        <%= title %>
+    </h1>
+</div>
+<div id="main">
+    <div class="box">
+        <div class="pic">
+            <img src="/images/001.jpg" alt="Gakki" />
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/002.jpg" alt="Gakki" />
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/003.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/004.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/005.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/006.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/007.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/008.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/009.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/010.jpg" alt="Gakki">
+        </div>
+    </div>
+    
+    <div class="box">
+        <div class="pic">
+            <img src="/images/011.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/012.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/013.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/014.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/015.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/016.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/017.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/018.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/019.jpg" alt="Gakki">
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="pic">
+            <img src="/images/020.jpg" alt="Gakki">
+        </div>
+    </div>
+<script>
+$(window).on('load', function(){
+    waterfall();
+ var imagesData = { data: [ { src: '001.jpg' }, { src: '002.jpg' }, { src: '003.jpg' }, { src: '004.jpg' }, { src: '005.jpg'
+}, { src: '006.jpg' }, { src: '007.jpg' }, { src: '008.jpg' }, { src: '009.jpg' }, { src: '010.jpg' }, { src: '011.jpg' },
+{ src: '012.jpg' }, { src: '013.jpg' }, { src: '014.jpg' }, { src: '015.jpg' }, { src: '016.jpg' }, { src: '017.jpg' }, {
+src: '018.jpg' }, { src: '019.jpg' }, { src: '020.jpg' } ] };
+    $(window).on('scroll', function(){
+        if (checkScrollSlide){
+            $.each(imagesData.data, function(key, value){
+                var oBox = $('<div>').addClass('box').appendTo($('#main'));
+                var oPic = $('<div>').addClass('pic').appendTo($(oBox));
+                var oImg = $('<img>').attr('src', 'images/' + $(value).attr('src')).appendTo($(oPic));
+            })
+            waterfall();
+        }
+    });
+});
+
+function waterfall(){
+    var $boxs = $('#main>div');
+    var w = $boxs.eq(0).outerWidth();
+    var cols = Math.floor($(window).width() / w);
+    $('#main').width(w*cols).css('margin','0 auto');
+    var hArr = [];
+    $boxs.each(function(index, value){
+        var imageH = $boxs.eq(index).outerHeight();
+        if(index < cols){
+            hArr[index] = imageH;
+        } else {
+            var minH = Math.min.apply(null, hArr);
+            var minHIndex = $.inArray(minH, hArr);
+            $(value).css({
+                'position': 'absolute',
+                'top': minH + 'px',
+                'left': minHIndex * w + 'px',
+            })
+            hArr[minHIndex] += $boxs.eq(index).outerHeight();
+        }
+    });
+};
+
+function checkScrollSlide(){
+    var $lastBox = $('#main>div').last();
+    var lastBoxDis = $lastBox.offset().top + Math.floor($lastBox.outerHeight()/2);
+    var scrollTop = $(window).scrollTop();
+    var documentH = $(window).height();
+    return (lastBoxDis < scrollTop + documentH )?true:false;
+};
+</script>
