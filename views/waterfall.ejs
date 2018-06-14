@@ -127,55 +127,87 @@
 
 
 <script>
-window.onload = function(){
-    waterfall('main', 'box');
-}
+    window.onload = function () {
+        waterfall('main', 'box');
+ var imagesData = {'data':[{"src":"000.jpg"},{"src":"001.jpg"},{"src":"002.jpg"},{"src":"003.jpg"},{"src":"004.jpg"},{"src":\"005.jpg\"},{\"src\":\"006.jpg\"},{\"src\":\"007.jpg\"},{\"src\":\"008.jpg\"},{\"src\":\"009.jpg\"},{\"src\":\"010.jpg\"},{\"src\":\"011.jpg\"},{\"src\":\"012.jpg\"},{\"src\":\"013.jpg\"},{\"src\":\"014.jpg\"},{\"src\":\"015.jpg\"},{\"src\":\"016.jpg\"},{\"src\":\"017.jpg\"},{\"src\":\"018.jpg\"},{\"src\":\"019.jpg\"},{\"src\":\"020.jpg\"}]};
 
-function waterfall(parent, box){
-    //将main下所以的box元素取出
-    var oParent = document.getElementById(parent);
-    var oBox = getByClass(oParent, box);
-    //计算整个页面显示的列数
-    var oBoxWidth = oBox[0].offsetWidth;
-    var cols = Math.floor(document.documentElement.clientWidth/oBoxWidth);
-    oParent.style.cssText = 'width:' + oBoxWidth * cols + 'px; margin: 0 auto';
-    //定位第二列的位置
-    var hArr = [];
-    for (var i = 0; i < oBox.length; i++){
-        var boxH = oBox[i].offsetHeight;
-        if(i < cols) {
-            hArr[i] = boxH;
-        } else {
-            //通过apply来改变函数的this的方法
-            var minHeight = Math.min.apply(null, hArr);
-            var minIndex = getMinHeightIndex(hArr, minHeight);
-            oBox[i].style.position = 'absolute';
-            oBox[i].style.top = minHeight + 'px';
-            oBox[i].style.left = oBoxWidth * minIndex + 'px';
-            //oBox[i].style.left = oBox[minIndex].offsetLeft+'px';
-            hArr[minIndex] += oBox[i].offsetHeight;
-        }
+        window.onscroll = function () {
+            if (checkScrollSlide) {
+                var oParent = document.getElementById('main');
+                //将数据块渲染到页面尾部
+                for (var i = 0; i<imagesData.data.length; i++){
+                    var createBox = document.createElement('div');
+                    createBox.className = 'box';
+                    oParent.appendChild(createBox);
+                    var createPic = document.createElement('div');
+                    createPic.className = 'pic';
+                    createBox.appendChild(createPic);
+                    var oImage = document.createElement('img');
+                    oImage.src = 'images/' + imagesData.data[i].src;
+                    createPic.appendChild(oImage);
+                }
+                waterfall('main', 'box');
+            }
+        };
     }
-};
 
-//根据class获取元素
-function getByClass(parent, clsName){
-    //用来存储取到的所有class元素
-    var boxArr = new Array();
-    var oElements = parent.getElementsByTagName('*');
-    for(var i = 0; i < oElements.length; i++){
-        if(oElements[i].className == clsName){
-            boxArr.push(oElements[i]);
+    function waterfall(parent, box) {
+        //将main下所以的box元素取出
+        var oParent = document.getElementById(parent);
+        var oBox = getByClass(oParent, box);
+        //计算整个页面显示的列数
+        var oBoxWidth = oBox[0].offsetWidth;
+        var cols = Math.floor(document.documentElement.clientWidth / oBoxWidth);
+        oParent.style.cssText = 'width:' + oBoxWidth * cols + 'px; margin: 0 auto';
+        //定位第二列的位置
+        var hArr = [];
+        for (var i = 0; i < oBox.length; i++) {
+            var boxH = oBox[i].offsetHeight;
+            if (i < cols) {
+                hArr[i] = boxH;
+            } else {
+                //通过apply来改变函数的this的方法
+                var minHeight = Math.min.apply(null, hArr);
+                var minIndex = getMinHeightIndex(hArr, minHeight);
+                oBox[i].style.position = 'absolute';
+                oBox[i].style.top = minHeight + 'px';
+                oBox[i].style.left = oBoxWidth * minIndex + 'px';
+                //oBox[i].style.left = oBox[minIndex].offsetLeft+'px';
+                hArr[minIndex] += oBox[i].offsetHeight;
+            }
         }
     };
-    return boxArr;
-};
 
-function getMinHeightIndex(arr, minH){
-    for(var i in arr){
-        if(arr[i] == minH){
-            return i;
+    //根据class获取元素
+    function getByClass(parent, clsName) {
+        //用来存储取到的所有class元素
+        var boxArr = new Array();
+        var oElements = parent.getElementsByTagName('*');
+        for (var i = 0; i < oElements.length; i++) {
+            if (oElements[i].className == clsName) {
+                boxArr.push(oElements[i]);
+            }
+        };
+        return boxArr;
+    };
+
+    function getMinHeightIndex(arr, minH) {
+        for (var i in arr) {
+            if (arr[i] == minH) {
+                return i;
+            }
         }
     }
-}
+
+    //检测是否满足加载数据块的条件
+    function checkScrollSlide() {
+        var oParent = document.getElementById('main');
+        var oBox = getByClass(oParent, 'box');
+        var lastBoxH = oBox[oBox.length - 1].offsetTop + Math.floor(oBox[oBox.length - 1].offsetHeight / 2);
+        var scrollTop = document.body.srcollTop || document.documentElement.scrollTop;
+        //页面滚走的高度
+        var pageHeight = document.body.clientHeight || document.documentElement.clientHeight;
+        return (lastBoxH < scrollTop + pageHeight) ? true : false;
+    };
+
 </script>
