@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(useragent.express());
 
 app.use('/', page);
-app.use('/api', api);
+app.use('/api/v1', api);
 app.get('/useragent', function (req, res) {
   res.send(req.useragent);
 });

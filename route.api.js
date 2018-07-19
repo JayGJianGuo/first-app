@@ -2,29 +2,23 @@ var express = require('express');
 var router = express.Router();
 var PostModel = require('./models/post');
 
-/* Get users lists. */
+/* GET users lists. */
 router.get('/users', function (req, res, next) {
     res.send('respond with a resource');
 });
 
-/* Get posts lists */
+/* GET posts lists */
 router.get('/posts', function (req, res, next) {
     PostModel.find({}, {}, function (err, posts) {
         if (err) {
-            res.json({
-                success: false
-            });
-            return;
+            next(err);
         }
-        res.json({
-            success: true,
-            postsList: posts
-        });
+        res.json({ postsList: posts });
     });
 });
 
-/* Post create posts */
-router.post('/posts/create', function (req, res, next) {
+/* POST create posts */
+router.post('/posts', function (req, res, next) {
     var title = req.body.title;
     var content = req.body.content;
 
@@ -33,20 +27,20 @@ router.post('/posts/create', function (req, res, next) {
     post.content = content;
     post.save(function (err, doc) {
         if (err) {
-            res.json({ success: false });
+            next(err);
         } else {
-            res.json({ success: true });
+            res.json({ post: doc });
         }
     });
 });
 
 /* GET one post */
-router.get('/posts/one', function (req, res, next) {
+router.get('/posts/:id', function (req, res, next) {
     var id = req.query.id;
 
     PostModel.findOne({ _id: id }, function (err, post) {
         if (err) {
-            res.json({ success: false });
+            next(err);
         } else {
             res.json({ success: true, post });
         }
@@ -55,16 +49,16 @@ router.get('/posts/one', function (req, res, next) {
 
 
 /* PATCH edit post */
-router.post('/posts/edit', function (req, res, next) {
+router.post('/posts/:id', function (req, res, next) {
     var id = req.body.id;
     var title = req.body.title;
     var content = req.body.content;
 
     PostModel.findOneAndUpdate({ _id: id }, { title, content }, function (err) {
         if (err) {
-            res.json({ success: false });
+            next(err);
         } else {
-            res.json({ success: true });
+            res.json({});
         }
     });
 });

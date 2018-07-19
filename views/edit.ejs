@@ -25,10 +25,13 @@ var vm = new Vue({
     content: ''
   },
   created () {
-    axios.get('/api/posts/one?id=' + postId)
+    axios.get('/api/v1/posts/' + postId)
       .then(function(response) {
-        vm.title = response.data.post.title;
-        vm.content = response.data.post.content;
+        return response.data;
+      })
+      .then(function(data){
+        vm.title = data.post.title;
+        vm.content = data.post.content;
       })
       .catch(function(err) {
         alert(err);
@@ -36,14 +39,17 @@ var vm = new Vue({
   },
   methods: {
     submit () {
-    axios.post('/api/posts/edit',
+    axios.post('/api/v1/posts/:id',
       {
         id: postId,
         title: vm.title,
         content: vm.content
       })
       .then(function(response) {
-        alert(JSON.stringify(response.data));
+        return response.data;
+      })
+      .then(function(data){
+        window.location = '/posts/show?id=' + postId;
       })
       .catch(function(err) {
         alert(err);
