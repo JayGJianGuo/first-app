@@ -48,4 +48,14 @@ router.get('/waterfall_3', function(req, res, next){
     res.render('waterfall_3', { title: 'WOW~ Gakki!'})
 });
 
+/* GET signup page. */
+router.get('/signup', function(req, res, next){
+    res.render('signup');
+});
+
+router.get('/signin', function(req, res, next){
+    res.render('signin');
+});
+
+
 module.exports = router;
