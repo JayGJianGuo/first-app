@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var expressLayouts = require('express-ejs-layouts');
 var useragent = require('express-useragent');
 
+var config = require('./config');
+var auth = require('./middlewares/auth');
 var page = require('./route.page');
 var api = require('./route.api');
 
@@ -20,18 +22,14 @@ app.use(expressLayouts);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser(config.cookieName));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(useragent.express());
+
+app.use(auth.authUser);
 
 app.use('/', page);
 app.use('/api/v1', api);
-app.get('/useragent', function (req, res) {
-  res.send(req.useragent);
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
