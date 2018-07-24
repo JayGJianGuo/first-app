@@ -1,4 +1,3 @@
-var createError = require('http-errors');
 require('./models/init');
 var express = require('express');
 var path = require('path');
@@ -7,6 +6,8 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var expressLayouts = require('express-ejs-layouts');
 var useragent = require('express-useragent');
+var createError = require('http-errors');
+
 
 var config = require('./config');
 var auth = require('./middlewares/auth');

@@ -1,14 +1,16 @@
     <div class="btn-group pull-right">
-        <button type="button" class="btn btn-default">Option</button>
+        <% if(currentUser) { %>
+        <button type="button" class="btn btn-default">操作</button>
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu">
             <li>
-                <a href="/posts/create">New</a>
+                <a href="/posts/create">新建</a>
             </li>
         </ul>
+        <% } %>
     </div>
     <div id="app">
         <h1>
