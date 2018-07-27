@@ -12,13 +12,20 @@ router.get('/users', function (req, res, next) {
 
 /* GET posts lists */
 router.get('/posts', function (req, res, next) {
-    PostModel.find({}, {}, function (err, posts) {
-        if (err) {
-            next(err);
-        } else {
-            res.json({ postsList: posts });
-        }
-    });
+
+    // PostModel.find({}, {}, function (err, posts) {
+    //     if (err) {
+    //         next(err);
+    //     } else {
+    //         res.json({ postsList: posts });
+    //     }
+    // });
+    PostModel.find({}, {})
+        .exec()
+        .then(posts => {
+            res.json({ postsList: posts});
+        })
+        .catch(next);
 });
 
 /* POST create posts */
@@ -30,26 +37,37 @@ router.post('/posts', function (req, res, next) {
     post.title = title;
     post.content = content;
     post.authorId = res.locals.currentUser._id;
-    post.save(function (err, doc) {
-        if (err) {
-            next(err);
-        } else {
+    // post.save(function (err, doc) {
+    //     if (err) {
+    //         next(err);
+    //     } else {
+    //         res.json({ post: doc });
+    //     }
+    // });
+    post.save()
+        .then(doc => {
             res.json({ post: doc });
-        }
-    });
+        })
+        .catch(next);
 });
 
 /* GET one post */
 router.get('/posts/:id', function (req, res, next) {
     var id = req.query.id;
 
-    PostModel.findOne({ _id: id }, function (err, post) {
-        if (err) {
-            next(err);
-        } else {
+    // PostModel.findOne({ _id: id }, function (err, post) {
+    //     if (err) {
+    //         next(err);
+    //     } else {
+    //         res.json({ post });
+    //     }
+    // });
+    PostModel.findOne({ _id: id })
+        .exec()
+        .then( () => {
             res.json({ post });
-        }
-    });
+        })
+        .catch(next);
 });
 
 
@@ -59,13 +77,26 @@ router.post('/posts/:id', function (req, res, next) {
     var title = req.body.title;
     var content = req.body.content;
 
-    PostModel.findOneAndUpdate({ _id: id }, { title, content }, function (err) {
-        if (err) {
-            next(err);
-        } else {
-            res.json({});
-        }
-    });
+    // PostModel.findOneAndUpdate({ _id: id }, { title, content }, function (err) {
+    //     if (err) {
+    //         next(err);
+    //     } else {
+    //         res.json({});
+    //     }
+    // });
+
+    PostModel.findOneAndUpdate({ _id: id }, { title, content })
+        .exec()
+        .then( () => {
+            res.json({
+                _id: id
+            }, {
+                title,
+                content
+            });
+        })
+        .catch(next);
+
 });
 
 /* POST signup user */
@@ -81,13 +112,19 @@ router.post('/signup', function(req, res, next){
     var user = new UserModel();
     user.name = name;
     user.pass = bcrypt.hashSync(pass, 10);
-    user.save(function(err) {
-        if(err) {
-            next(err);
-        } else {
+    // user.save(function(err) {
+    //     if(err) {
+    //         next(err);
+    //     } else {
+    //         res.end();
+    //     }
+    // });
+
+    user.save()
+        .then(() => {
             res.end();
-        }
-    });
+        })
+        .catch(next);
 });
 
 /* POST signin user */

@@ -23,10 +23,17 @@ router.get('/posts/create', function(req, res, next){
 router.get('/posts/show', function(req, res, next){
     var id = req.query.id;
 
-    PostModel.findOne({_id: id}, function(err, post){
-        post.content = marked(post.content);
-        res.render('show', {post});
-    });
+    // PostModel.findOne({_id: id}, function(err, post){
+    //     post.content = marked(post.content);
+    //     res.render('show', {post});
+    // });
+    PostModel.findOne({ _id: id })
+        .exec()
+        .then(post => {
+            post.content = marked(post.content);
+            res.render('show', { post });
+        })
+        .catch(next)
 });
 
 /* GET posts edit page. */
