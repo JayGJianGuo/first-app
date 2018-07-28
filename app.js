@@ -7,12 +7,15 @@ var bodyParser = require('body-parser');
 var expressLayouts = require('express-ejs-layouts');
 var useragent = require('express-useragent');
 var createError = require('http-errors');
-
+var connectMongodb = require('connect-mongo');
+var session = require('express-session');
 
 var config = require('./config');
 var auth = require('./middlewares/auth');
 var page = require('./route.page');
 var api = require('./route.api');
+
+var MongoStore = new connectMongodb(session);
 
 var app = express();
 
@@ -26,6 +29,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(config.cookieName));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(
+  session({
+    secret: config.sessionSecret,
+    store: new MongoStore({
+      url: config.mongodbUrl
+    }),
+    resave: true,
+    saveUninitialized: true
+  })
+);
 
 app.use(auth.authUser);
 

@@ -3,6 +3,7 @@ var router = express.Router();
 var PostModel = require('./models/post');
 var marked = require('marked');
 var config = require('./config');
+var auth = require('./middlewares/auth');
 
 /* Get home page. */
 router.get('/', function(req, res, next){
@@ -15,7 +16,7 @@ router.get('/posts', function(req, res, next){
 });
 
 /* Get posts create page. */
-router.get('/posts/create', function(req, res, next){
+router.get('/posts/create', auth.adminRequired, function (req, res, next) {
     res.render('create');
 });
 
@@ -37,7 +38,7 @@ router.get('/posts/show', function(req, res, next){
 });
 
 /* GET posts edit page. */
-router.get('/posts/edit', function (req, res, next) {
+router.get('/posts/edit', auth.adminRequired, function (req, res, next) {
   var id = req.query.id;
 
   res.render('edit', { id });
@@ -66,11 +67,11 @@ router.get('/signin', function(req, res, next){
     res.render('signin');
 });
 
-/* GET signout  */
+/* GET signout */
 router.get('/signout', function (req, res, next) {
+  req.session.user = null;
   res.clearCookie(config.cookieName, { path: '/' });
   res.redirect('/');
 });
-
 
 module.exports = router;

@@ -4,6 +4,7 @@ var bcrypt = require('bcrypt');
 var PostModel = require('./models/post');
 var UserModel = require('./models/user');
 var config = require('./config');
+var auth = require('./middlewares/auth');
 
 /* GET users lists. */
 router.get('/users', function (req, res, next) {
@@ -29,7 +30,7 @@ router.get('/posts', function (req, res, next) {
 });
 
 /* POST create posts */
-router.post('/posts', function (req, res, next) {
+router.post('/posts', auth.adminRequired, function (req, res, next) {
     var title = req.body.title;
     var content = req.body.content;
 
@@ -72,7 +73,7 @@ router.get('/posts/:id', function (req, res, next) {
 
 
 /* PATCH edit post */
-router.post('/posts/:id', function (req, res, next) {
+router.post('/posts/:id', auth.adminRequired, function (req, res, next) {
     var id = req.body.id;
     var title = req.body.title;
     var content = req.body.content;
