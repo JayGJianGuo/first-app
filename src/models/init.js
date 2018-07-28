@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var config = require('../config');
+import mongoose from 'mongoose';
+import config from '../config';
 
-var db = mongoose.connect('mongodb://localhost:32768/firstapp', {
+const db = mongoose.connect('mongodb://localhost:32768/firstapp', {
     useMongoClient: true
 });
 

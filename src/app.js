@@ -1,23 +1,23 @@
 require('./models/init');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var expressLayouts = require('express-ejs-layouts');
-var useragent = require('express-useragent');
-var createError = require('http-errors');
-var connectMongodb = require('connect-mongo');
-var session = require('express-session');
+import express from'express';
+import path from'path';
+import cookieParser from'cookie-parser';
+import logger from'morgan';
+import bodyParser from'body-parser';
+import expressLayouts from'express-ejs-layouts';
+import useragent from'express-useragent';
+import createError from'http-errors';
+import connectMongodb from'connect-mongo';
+import session from'express-session';
 
-var config = require('./config');
-var auth = require('./middlewares/auth');
-var page = require('./route.page');
-var api = require('./route.api');
+import config from './config';
+import * as auth from './middlewares/auth';
+import page from './route.page';
+import api from './route.api';
 
-var MongoStore = new connectMongodb(session);
+const MongoStore = new connectMongodb(session);
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -1,14 +1,15 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
-var ObjectId = Schema.ObjectId;
+const Schema = mongoose.Schema;
 
-var PostSchema = new Schema({
+const ObjectId = Schema.ObjectId;
+
+const PostSchema = new Schema({
     title: String,
     content: String,
     authorId: ObjectId,
 });
 
-var PostModel = mongoose.model('Post', PostSchema);
+const PostModel = mongoose.model('Post', PostSchema);
 
-module.exports = PostModel;
+export default PostModel;
