@@ -1,6 +1,8 @@
 import express from 'express';
 const router = express.Router();
 import bcrypt from 'bcrypt';
+import jwt from 'jwt-simple';
+import moment from 'moment';
 
 import PostModel from './models/post';
 import UserModel from './models/user';
@@ -134,30 +136,38 @@ router.post('/signup', function(req, res, next){
 
 /* POST signin user */
 router.post('/signin', function(req, res, next) {
-    const name = req.body.name || '';
-    const pass = req.body.pass || '';
+  const { name, pass } = req.body;
 
-    UserModel.findOne({ name }, function(err, user){
-        if (err || !user) {
-            return next(new Error('找不到用户'));
-        } else {
-            const isOk = bcrypt.compareSync(pass, user.pass);
-            if (!isOk) {
-                return next(new Error('密码不对'));
-            }
+  UserModel.findOne({ name }, function(err, user) {
+    if (err || !user) {
+      return next(new Error('找不到用户'));
+    } else {
+      const isOk = bcrypt.compareSync(pass, user.pass);
+      if (!isOk) {
+        return next(new Error('密码不对'));
+      }
+      
+      const token = jwt.encode(
+        {
+          _id: user._id,
+          name: user.name,
+          isAdmin: user.name === config.admin,
+          exp: moment().add('days', 30).valueOf(),
+        },
+        config.jwtSecret
+      );
 
-            const authToken = user._id;
-            const opts = {
-                path: '/',
-                maxAge: 1000 * 60 * 60 * 24 * 30, //cookie 有效期30天
-                signed: true,
-                httpOnly: true
-            };
+      const opts = {
+        path: '/',
+        maxAge: moment().add('days', 30).valueOf(),
+        signed: true,
+        httpOnly: true
+      };
 
-            res.cookie(config.cookieName, authToken, opts);
-            res.end();
-        }
-    });
+      res.cookie(config.cookieName, token, opts);
+      res.json({ token });
+    }
+  });
 });
 
 export default router;
